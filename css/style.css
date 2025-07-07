@@ -1,0 +1,735 @@
+/* 德语背单词智能学习系统 - 极简黑白设计 */
+
+/* 基础重置 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* 根样式 */
+:root {
+    --color-black: #000000;
+    --color-white: #ffffff;
+    --color-gray-light: #f5f5f5;
+    --color-gray-medium: #999999;
+    --color-gray-dark: #333333;
+    --color-success: #2d5a27;
+    --color-danger: #8b0000;
+    --font-mono: 'SF Mono', 'Monaco', 'Menlo', monospace;
+    --font-system: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+    --border-width: 1px;
+    --border-radius: 0;
+    --spacing-xs: 8px;
+    --spacing-sm: 16px;
+    --spacing-md: 24px;
+    --spacing-lg: 32px;
+    --spacing-xl: 48px;
+}
+
+/* 基础排版 */
+body {
+    font-family: var(--font-system);
+    font-size: 16px;
+    line-height: 1.6;
+    color: var(--color-black);
+    background-color: var(--color-white);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* 容器布局 */
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: var(--spacing-md);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* 头部样式 */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--spacing-lg) 0;
+    border-bottom: var(--border-width) solid var(--color-black);
+    margin-bottom: var(--spacing-xl);
+}
+
+.logo {
+    font-family: var(--font-mono);
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--color-black);
+    letter-spacing: -0.02em;
+}
+
+.nav {
+    display: flex;
+    gap: var(--spacing-xs);
+}
+
+.nav-btn {
+    padding: var(--spacing-xs) var(--spacing-sm);
+    border: var(--border-width) solid var(--color-black);
+    background-color: var(--color-white);
+    color: var(--color-black);
+    font-family: var(--font-mono);
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.nav-btn:hover {
+    background-color: var(--color-gray-light);
+}
+
+.nav-btn.active {
+    background-color: var(--color-black);
+    color: var(--color-white);
+}
+
+/* 开始界面 */
+.start-screen {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.welcome-card {
+    text-align: center;
+    border: var(--border-width) solid var(--color-black);
+    padding: var(--spacing-xl);
+    max-width: 500px;
+    width: 100%;
+}
+
+.welcome-card h2 {
+    font-family: var(--font-mono);
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: var(--spacing-sm);
+}
+
+.welcome-card p {
+    font-size: 16px;
+    color: var(--color-gray-dark);
+    margin-bottom: var(--spacing-lg);
+}
+
+/* 学习摘要 */
+.learning-summary {
+    display: flex;
+    justify-content: space-around;
+    margin: var(--spacing-lg) 0;
+    padding: var(--spacing-md) 0;
+    border: var(--border-width) solid var(--color-gray-light);
+}
+
+.summary-item {
+    text-align: center;
+}
+
+.summary-label {
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--color-gray-medium);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: var(--spacing-xs);
+}
+
+.summary-value {
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--color-black);
+}
+
+/* 开始控制 */
+.start-controls {
+    display: flex;
+    gap: var(--spacing-sm);
+    margin-top: var(--spacing-lg);
+}
+
+/* 主内容区域 */
+.main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-lg);
+}
+
+.learning-screen {
+    align-items: center;
+    justify-content: center;
+}
+
+/* 学习模式 */
+.learning-mode {
+    width: 100%;
+    max-width: 600px;
+}
+
+/* 学习卡片 */
+.card {
+    border: var(--border-width) solid var(--color-black);
+    padding: var(--spacing-xl);
+    background-color: var(--color-white);
+    position: relative;
+}
+
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--spacing-lg);
+    padding-bottom: var(--spacing-sm);
+    border-bottom: var(--border-width) solid var(--color-gray-light);
+}
+
+.header-controls {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+}
+
+.learning-phase {
+    font-family: var(--font-mono);
+    font-size: 14px;
+    color: var(--color-gray-medium);
+    text-transform: uppercase;
+}
+
+.word-count {
+    font-family: var(--font-mono);
+    font-size: 14px;
+    color: var(--color-gray-medium);
+}
+
+.sound-btn {
+    width: 40px;
+    height: 40px;
+    border: var(--border-width) solid var(--color-black);
+    background-color: var(--color-white);
+    color: var(--color-black);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+}
+
+.sound-btn:hover {
+    background-color: var(--color-gray-light);
+}
+
+.sound-btn:active {
+    background-color: var(--color-black);
+    color: var(--color-white);
+}
+
+/* 卡片内容 */
+.card-content {
+    text-align: center;
+}
+
+.question {
+    margin-bottom: var(--spacing-lg);
+}
+
+.german-word {
+    font-family: var(--font-mono);
+    font-size: 36px;
+    font-weight: 700;
+    color: var(--color-black);
+    margin-bottom: var(--spacing-sm);
+    letter-spacing: -0.02em;
+}
+
+.translation-hint {
+    font-size: 28px;
+    color: var(--color-gray-dark);
+    margin-bottom: var(--spacing-sm);
+}
+
+.word-type {
+    font-family: var(--font-mono);
+    font-size: 14px;
+    color: var(--color-gray-medium);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+/* 选择题选项 */
+.options {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--spacing-sm);
+    margin-top: var(--spacing-lg);
+}
+
+.option-btn {
+    padding: var(--spacing-md);
+    border: var(--border-width) solid var(--color-black);
+    background-color: var(--color-white);
+    color: var(--color-black);
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-align: left;
+    position: relative;
+    z-index: 1;
+}
+
+.option-btn:hover:not(:disabled) {
+    background-color: var(--color-gray-light);
+}
+
+.option-btn:disabled {
+    cursor: not-allowed;
+}
+
+.option-btn.selected {
+    background-color: var(--color-black);
+    color: var(--color-white);
+}
+
+.option-btn.correct {
+    background-color: var(--color-success);
+    color: var(--color-white);
+}
+
+.option-btn.incorrect {
+    background-color: var(--color-danger);
+    color: var(--color-white);
+}
+
+/* 认识模式控制 */
+.recognition-controls {
+    display: flex;
+    gap: var(--spacing-md);
+    justify-content: center;
+    margin: var(--spacing-lg) 0;
+}
+
+.answer-reveal {
+    margin-top: var(--spacing-lg);
+    padding: var(--spacing-md);
+    border: var(--border-width) solid var(--color-gray-light);
+    background-color: var(--color-gray-light);
+}
+
+.answer-label {
+    font-family: var(--font-mono);
+    font-size: 14px;
+    color: var(--color-gray-medium);
+}
+
+.answer-text {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--color-black);
+}
+
+/* 默写模式 */
+.dictation-input-container {
+    margin: var(--spacing-lg) 0;
+}
+
+.dictation-input {
+    width: 100%;
+    padding: var(--spacing-md);
+    border: var(--border-width) solid var(--color-black);
+    background-color: var(--color-white);
+    color: var(--color-black);
+    font-family: var(--font-mono);
+    font-size: 18px;
+    text-align: center;
+    outline: none;
+}
+
+.dictation-input:focus {
+    border-color: var(--color-black);
+    box-shadow: 0 0 0 2px var(--color-gray-light);
+}
+
+.dictation-input.input-valid {
+    border-color: var(--color-success);
+}
+
+.dictation-input.input-invalid {
+    border-color: var(--color-danger);
+}
+
+.dictation-controls {
+    display: flex;
+    gap: var(--spacing-sm);
+    justify-content: center;
+    margin: var(--spacing-lg) 0;
+}
+
+.dictation-result {
+    margin-top: var(--spacing-lg);
+    padding: var(--spacing-md);
+    border: var(--border-width) solid var(--color-gray-medium);
+}
+
+.result-status {
+    font-family: var(--font-mono);
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: var(--spacing-sm);
+}
+
+.result-status.correct {
+    color: var(--color-success);
+}
+
+.result-status.incorrect {
+    color: var(--color-danger);
+}
+
+.correct-word {
+    font-family: var(--font-mono);
+    font-size: 18px;
+    color: var(--color-black);
+}
+
+/* 按钮样式 */
+.btn {
+    padding: var(--spacing-sm) var(--spacing-md);
+    border: var(--border-width) solid var(--color-black);
+    background-color: var(--color-white);
+    color: var(--color-black);
+    font-family: var(--font-mono);
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    min-width: 100px;
+    position: relative;
+    z-index: 1;
+}
+
+.btn:hover {
+    background-color: var(--color-gray-light);
+}
+
+.btn:active {
+    background-color: var(--color-black);
+    color: var(--color-white);
+}
+
+.btn:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+}
+
+.btn-primary {
+    background-color: var(--color-black);
+    color: var(--color-white);
+}
+
+.btn-primary:hover:not(:disabled) {
+    background-color: var(--color-gray-dark);
+}
+
+.btn-secondary {
+    background-color: var(--color-white);
+    color: var(--color-black);
+}
+
+.btn-success {
+    background-color: var(--color-success);
+    color: var(--color-white);
+    border-color: var(--color-success);
+}
+
+.btn-success:hover:not(:disabled) {
+    background-color: var(--color-black);
+}
+
+.btn-danger {
+    background-color: var(--color-danger);
+    color: var(--color-white);
+    border-color: var(--color-danger);
+}
+
+.btn-danger:hover:not(:disabled) {
+    background-color: var(--color-black);
+}
+
+/* 进度条 */
+.progress-container {
+    width: 100%;
+    max-width: 500px;
+    margin: var(--spacing-lg) 0;
+}
+
+.progress-bar {
+    width: 100%;
+    height: 4px;
+    background-color: var(--color-gray-light);
+    border: var(--border-width) solid var(--color-black);
+    position: relative;
+    overflow: hidden;
+}
+
+.progress-fill {
+    height: 100%;
+    background-color: var(--color-black);
+    width: 0%;
+    transition: width 0.3s ease;
+}
+
+.progress-text {
+    text-align: center;
+    margin-top: var(--spacing-sm);
+    font-family: var(--font-mono);
+    font-size: 14px;
+    color: var(--color-gray-medium);
+}
+
+/* 统计信息 */
+.stats {
+    display: flex;
+    gap: var(--spacing-lg);
+    justify-content: center;
+    margin: var(--spacing-md) 0;
+}
+
+.stat-item {
+    text-align: center;
+}
+
+.stat-label {
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--color-gray-medium);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: var(--spacing-xs);
+}
+
+.stat-value {
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--color-black);
+}
+
+/* 学习控制 */
+.learning-controls {
+    display: flex;
+    gap: var(--spacing-sm);
+    justify-content: center;
+    margin-top: var(--spacing-lg);
+}
+
+/* 德语键盘 */
+.german-keyboard {
+    background-color: var(--color-white);
+    border: var(--border-width) solid var(--color-black);
+    padding: var(--spacing-sm);
+}
+
+.keyboard-row {
+    display: flex;
+    gap: var(--spacing-xs);
+    margin-bottom: var(--spacing-xs);
+}
+
+.key-btn {
+    padding: var(--spacing-xs) var(--spacing-sm);
+    border: var(--border-width) solid var(--color-black);
+    background-color: var(--color-white);
+    color: var(--color-black);
+    font-family: var(--font-mono);
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.key-btn:hover {
+    background-color: var(--color-gray-light);
+}
+
+.key-btn:active {
+    background-color: var(--color-black);
+    color: var(--color-white);
+}
+
+.keyboard-hint {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--color-gray-medium);
+    text-align: center;
+    margin-top: var(--spacing-xs);
+}
+
+/* 消息提示 */
+.toast-container {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 9999;
+}
+
+.toast {
+    background-color: var(--color-black);
+    color: var(--color-white);
+    padding: var(--spacing-sm) var(--spacing-md);
+    border: var(--border-width) solid var(--color-black);
+    margin-bottom: var(--spacing-xs);
+    font-family: var(--font-mono);
+    font-size: 14px;
+    animation: slideIn 0.3s ease;
+}
+
+.toast.success {
+    background-color: var(--color-success);
+    border-color: var(--color-success);
+}
+
+.toast.error {
+    background-color: var(--color-danger);
+    border-color: var(--color-danger);
+}
+
+/* 底部 */
+.footer {
+    text-align: center;
+    padding: var(--spacing-lg) 0;
+    border-top: var(--border-width) solid var(--color-black);
+    margin-top: var(--spacing-xl);
+}
+
+.footer p {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--color-gray-medium);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+/* 动画效果 */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateX(100%);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.card-content {
+    animation: fadeIn 0.3s ease;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+    .container {
+        padding: var(--spacing-sm);
+    }
+    
+    .header {
+        flex-direction: column;
+        gap: var(--spacing-md);
+        text-align: center;
+    }
+    
+    .german-word {
+        font-size: 28px;
+    }
+    
+    .translation-hint {
+        font-size: 24px;
+    }
+    
+    .stats {
+        flex-direction: column;
+        gap: var(--spacing-md);
+    }
+    
+    .start-controls,
+    .learning-controls,
+    .dictation-controls,
+    .recognition-controls {
+        flex-direction: column;
+        width: 100%;
+    }
+    
+    .btn {
+        width: 100%;
+    }
+    
+    .options {
+        grid-template-columns: 1fr;
+    }
+    
+    .learning-summary {
+        flex-direction: column;
+        gap: var(--spacing-md);
+    }
+}
+
+@media (max-width: 480px) {
+    .card {
+        padding: var(--spacing-md);
+    }
+    
+    .german-word {
+        font-size: 24px;
+    }
+    
+    .translation-hint {
+        font-size: 20px;
+    }
+    
+    .welcome-card {
+        padding: var(--spacing-md);
+    }
+    
+    .welcome-card h2 {
+        font-size: 24px;
+    }
+}
+
+/* 聚焦状态 */
+.btn:focus,
+.nav-btn:focus,
+.sound-btn:focus,
+.option-btn:focus,
+.dictation-input:focus {
+    outline: 2px solid var(--color-black);
+    outline-offset: 2px;
+}
+
+/* 选中状态 */
+::selection {
+    background-color: var(--color-black);
+    color: var(--color-white);
+}

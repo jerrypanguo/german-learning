@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>德语背单词 - 测试版</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- 头部导航 -->
+        <header class="header">
+            <h1 class="logo">德语背单词 - 测试版</h1>
+            <nav class="nav">
+                <button class="nav-btn active" data-mode="de-en">德英</button>
+                <button class="nav-btn" data-mode="de-zh">德中</button>
+            </nav>
+        </header>
+
+        <!-- 开始界面 -->
+        <div class="start-screen" id="startScreen">
+            <div class="welcome-card">
+                <h2>测试版本</h2>
+                <p>测试按钮点击功能</p>
+                
+                <div class="start-controls">
+                    <button class="btn btn-primary" id="startLearningBtn">开始学习</button>
+                    <button class="btn btn-secondary" id="reviewBtn">复习单词</button>
+                </div>
+
+                <div style="margin-top: 20px;">
+                    <button class="btn btn-success" onclick="testAllButtons()">测试所有按钮</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 只加载测试脚本 -->
+    <script src="js/test-app.js"></script>
+</body>
+</html>

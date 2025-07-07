@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>德语背单词 - 按钮测试</title>
+    <style>
+        /* 简化的样式 */
+        .container { max-width: 800px; margin: 0 auto; padding: 20px; }
+        .btn { 
+            padding: 10px 20px; 
+            border: 1px solid #000; 
+            background: #fff; 
+            cursor: pointer; 
+            margin: 5px;
+            font-size: 14px;
+        }
+        .btn:hover { background: #f0f0f0; }
+        .btn-primary { background: #000; color: #fff; }
+        .nav-btn { padding: 8px 16px; border: 1px solid #000; background: #fff; cursor: pointer; margin: 2px; }
+        .nav-btn.active { background: #000; color: #fff; }
+        .start-controls { margin: 20px 0; }
+        .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; }
+        .nav { display: flex; gap: 8px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>德语背单词 - 按钮测试</h1>
+            <nav class="nav">
+                <button class="nav-btn active" data-mode="de-en">德英</button>
+                <button class="nav-btn" data-mode="de-zh">德中</button>
+            </nav>
+        </header>
+
+        <div>
+            <h2>基础按钮测试</h2>
+            <div class="start-controls">
+                <button class="btn btn-primary" id="startLearningBtn">开始学习</button>
+                <button class="btn" id="reviewBtn">复习单词</button>
+                <button class="btn" onclick="testClick('直接点击')">直接点击测试</button>
+            </div>
+            
+            <div>
+                <h3>测试结果：</h3>
+                <div id="testResults" style="border: 1px solid #ccc; padding: 10px; min-height: 100px; background: #f9f9f9;"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function log(message) {
+            const results = document.getElementById('testResults');
+            results.innerHTML += '<div>' + new Date().toLocaleTimeString() + ': ' + message + '</div>';
+            console.log(message);
+        }
+
+        function testClick(source) {
+            log('测试点击成功 - ' + source);
+            alert('点击成功: ' + source);
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            log('DOM加载完成');
+
+            // 测试开始学习按钮
+            const startBtn = document.getElementById('startLearningBtn');
+            if (startBtn) {
+                log('找到开始学习按钮');
+                startBtn.addEventListener('click', function() {
+                    log('开始学习按钮被点击');
+                    testClick('开始学习');
+                });
+            } else {
+                log('错误: 未找到开始学习按钮');
+            }
+
+            // 测试复习按钮
+            const reviewBtn = document.getElementById('reviewBtn');
+            if (reviewBtn) {
+                log('找到复习按钮');
+                reviewBtn.addEventListener('click', function() {
+                    log('复习按钮被点击');
+                    testClick('复习单词');
+                });
+            } else {
+                log('错误: 未找到复习按钮');
+            }
+
+            // 测试模式切换按钮
+            document.querySelectorAll('.nav-btn').forEach(function(btn, index) {
+                log('找到模式按钮 ' + (index + 1) + ': ' + btn.textContent);
+                btn.addEventListener('click', function(e) {
+                    log('模式按钮被点击: ' + e.target.textContent);
+                    
+                    // 切换active状态
+                    document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+                    e.target.classList.add('active');
+                    
+                    testClick('模式切换: ' + e.target.textContent);
+                });
+            });
+
+            log('所有事件监听器已绑定');
+        });
+
+        // 页面加载完成后的额外测试
+        window.addEventListener('load', function() {
+            log('页面完全加载完成');
+            
+            setTimeout(function() {
+                log('延迟测试: 检查所有按钮');
+                const buttons = document.querySelectorAll('button');
+                log('总共找到 ' + buttons.length + ' 个按钮');
+                
+                buttons.forEach(function(btn, i) {
+                    const styles = window.getComputedStyle(btn);
+                    log('按钮 ' + (i+1) + ' (' + (btn.id || btn.textContent) + '): display=' + styles.display + ', visibility=' + styles.visibility + ', pointer-events=' + styles.pointerEvents);
+                });
+            }, 1000);
+        });
+    </script>
+</body>
+</html>
